@@ -1,0 +1,25 @@
+﻿{
+    "version": "1.0.0-*",
+    "description": "ApisFlorea.Library Class Library",
+    "authors": [ "xin9le" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+
+    "dependencies": {
+        "Newtonsoft.Json": "6.0.6"
+    },
+
+    "frameworks": {
+        "dnx451": {
+            "frameworkAssemblies": {
+                "System.Net.Http": "4.0.0.0"
+            }
+        },
+        "dnxcore50": {
+            "dependencies": {
+                "System.Net.Http": "4.0.0-beta-23015"
+            }
+        }
+    }
+}

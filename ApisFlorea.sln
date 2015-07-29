@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23023.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{96CECD62-DF6F-47A3-B0D4-9B905725440B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EBAC963E-70C7-4D7B-AC27-1B5EDDD0073B}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ApisFlorea.WebApp", "src\ApisFlorea.WebApp\ApisFlorea.WebApp.xproj", "{88D52019-CE23-414D-B854-95F53022FA5E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ApisFlorea.Models", "src\ApisFlorea.Models\ApisFlorea.Models.xproj", "{F0652D52-8587-4DB5-800D-1E84F8FDFFFA}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ApisFlorea.Library", "src\ApisFlorea.Library\ApisFlorea.Library.xproj", "{1FEBD123-D7AA-436A-B3BA-F277D9924675}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88D52019-CE23-414D-B854-95F53022FA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D52019-CE23-414D-B854-95F53022FA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D52019-CE23-414D-B854-95F53022FA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D52019-CE23-414D-B854-95F53022FA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0652D52-8587-4DB5-800D-1E84F8FDFFFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0652D52-8587-4DB5-800D-1E84F8FDFFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0652D52-8587-4DB5-800D-1E84F8FDFFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0652D52-8587-4DB5-800D-1E84F8FDFFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FEBD123-D7AA-436A-B3BA-F277D9924675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FEBD123-D7AA-436A-B3BA-F277D9924675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FEBD123-D7AA-436A-B3BA-F277D9924675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FEBD123-D7AA-436A-B3BA-F277D9924675}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88D52019-CE23-414D-B854-95F53022FA5E} = {96CECD62-DF6F-47A3-B0D4-9B905725440B}
+		{F0652D52-8587-4DB5-800D-1E84F8FDFFFA} = {96CECD62-DF6F-47A3-B0D4-9B905725440B}
+		{1FEBD123-D7AA-436A-B3BA-F277D9924675} = {96CECD62-DF6F-47A3-B0D4-9B905725440B}
+	EndGlobalSection
+EndGlobal
