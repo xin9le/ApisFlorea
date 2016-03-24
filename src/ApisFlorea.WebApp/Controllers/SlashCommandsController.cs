@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ApisFlorea.Models.Translation;
 using ApisFlorea.WebApp.Models.Slack;
 using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json;
 
 
 
@@ -46,12 +48,40 @@ namespace ApisFlorea.WebApp.Controllers
 
             //--- 結果
             var result = await new BingTranslator().TranslateAsync(null, to, text);
-            return this.Json(new
+            return this.Json(new Message
             {
-                //response_type = "ephemeral",
-                response_type = "in_channel",
-                text = result?.After ?? "翻訳に失敗しました...",
-            });
+                Text = result.Before,
+                IsEphemeral = true,
+                IsMarkdown = false,
+                Attachments = new []
+                {
+                    new Attachment
+                    {
+                        Color = "#339933",
+                        AuthorName = "Bing Translator",
+                        AuthorLink = "https://www.bing.com/translator",
+                        AuthorIcon = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
+                        Text = result.After,
+                      //ThumbUrl = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
+                        Fallback = $"Bing Translator{Environment.NewLine}{Environment.NewLine}{result.After}",
+                        Fields = new []
+                        {
+                            new Field
+                            {
+                                Title = "翻訳元",
+                                Value = result.From.Name,
+                                IsShort = true,
+                            },
+                            new Field
+                            {
+                                Title = "翻訳先",
+                                Value = result.To.Name,
+                                IsShort = true,
+                            },
+                        },
+                    },
+                },
+            }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
         #endregion
     }
