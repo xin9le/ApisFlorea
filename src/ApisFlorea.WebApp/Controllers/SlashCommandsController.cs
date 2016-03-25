@@ -40,9 +40,6 @@ namespace ApisFlorea.WebApp.Controllers
                 return this.HttpBadRequest();
             
             var to = Language.ByShortName[commands[0]];
-            if (to == null)
-                return this.HttpBadRequest();
-
             var text = string.Join(" ", commands.Skip(1));
             if (string.IsNullOrWhiteSpace(text))
                 return this.HttpBadRequest();
@@ -71,13 +68,24 @@ namespace ApisFlorea.WebApp.Controllers
                 },
                 #endregion
             }
-            .Select(async (x, i) => new
+            .Select(async (x, i) =>
             {
-                Order   = i,
-                Setting = x,
-                Result  = await x.Translator.TranslateAsync(to, text),
+                try
+                {
+                    return new
+                    {
+                        Order   = i,
+                        Setting = x,
+                        Result  = await x.Translator.TranslateAsync(to, text),
+                    };
+                }
+                catch
+                {
+                    return null;
+                }
             })
             .WhenAll())
+            .Where(x => x != null)
             .OrderBy(x => x.Order)
             .Select(x => new Attachment
             {
@@ -86,7 +94,6 @@ namespace ApisFlorea.WebApp.Controllers
                 AuthorLink = x.Setting.Url,
                 AuthorIcon = x.Setting.Icon,
                 Text       = x.Result.After,
-              //ThumbUrl   = x.Setting.Icon,
                 Fallback   = $"{x.Setting.Name}{Environment.NewLine}{Environment.NewLine}{x.Result.After}",
                 Fields = new []
                 {
