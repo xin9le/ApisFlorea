@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ApisFlorea.Library.Threading.Tasks;
 using ApisFlorea.Models.Translation;
 using ApisFlorea.WebApp.Models.Slack;
 using Microsoft.AspNet.Mvc;
@@ -46,41 +47,72 @@ namespace ApisFlorea.WebApp.Controllers
             if (string.IsNullOrWhiteSpace(text))
                 return this.HttpBadRequest();
 
-            //--- 結果
-            var result = await new BingTranslator().TranslateAsync(null, to, text);
-            return this.Json(new Message
+            //--- 翻訳 API 呼び出し
+            var attachments = (await new []
             {
-                Text = result.Before,
-                IsEphemeral = true,
-                IsMarkdown = false,
-                Attachments = new []
+                #region Translators
+                //--- Bing
+                new
                 {
-                    new Attachment
+                    Translator = (Translator)new BingTranslator(),
+                    Color      = "#339933",
+                    Name       = "Bing 翻訳",
+                    Url        = "https://www.bing.com/translator",
+                    Icon       = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
+                },
+                //--- Google
+                new
+                {
+                    Translator = (Translator)new GoogleTranslator(),
+                    Color      = "#377DF2",
+                    Name       = "Google 翻訳",
+                    Url        = "https://translate.google.com/",
+                    Icon       = "http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Translate-icon.png",
+                },
+                #endregion
+            }
+            .Select(async (x, i) => new
+            {
+                Order   = i,
+                Setting = x,
+                Result  = await x.Translator.TranslateAsync(to, text),
+            })
+            .WhenAll())
+            .OrderBy(x => x.Order)
+            .Select(x => new Attachment
+            {
+                Color      = x.Setting.Color,
+                AuthorName = x.Setting.Name,
+                AuthorLink = x.Setting.Url,
+                AuthorIcon = x.Setting.Icon,
+                Text       = x.Result.After,
+              //ThumbUrl   = x.Setting.Icon,
+                Fallback   = $"{x.Setting.Name}{Environment.NewLine}{Environment.NewLine}{x.Result.After}",
+                Fields = new []
+                {
+                    new Field
                     {
-                        Color = "#339933",
-                        AuthorName = "Bing Translator",
-                        AuthorLink = "https://www.bing.com/translator",
-                        AuthorIcon = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
-                        Text = result.After,
-                      //ThumbUrl = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
-                        Fallback = $"Bing Translator{Environment.NewLine}{Environment.NewLine}{result.After}",
-                        Fields = new []
-                        {
-                            new Field
-                            {
-                                Title = "翻訳元",
-                                Value = result.From.Name,
-                                IsShort = true,
-                            },
-                            new Field
-                            {
-                                Title = "翻訳先",
-                                Value = result.To.Name,
-                                IsShort = true,
-                            },
-                        },
+                        Title = "翻訳元",
+                        Value = x.Result.From.Name,
+                        IsShort = true,
+                    },
+                    new Field
+                    {
+                        Title = "翻訳先",
+                        Value = x.Result.To.Name,
+                        IsShort = true,
                     },
                 },
+            })
+            .ToArray();
+
+            //--- 結果
+            return this.Json(new Message
+            {
+                Text = text,
+                IsEphemeral = true,
+                IsMarkdown = false,
+                Attachments = attachments,
             }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
         #endregion
