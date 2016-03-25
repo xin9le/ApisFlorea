@@ -33,9 +33,32 @@ namespace ApisFlorea.WebApp.Controllers
             if (request.Command != "/translate")
                 return this.HttpBadRequest();
 
-            //--- コマンド引数解析
-            const int MinLength = 2;
+            //--- 引数解析 (翻訳可能一覧)
             var commands = request.Text.Split(' ');
+            if (commands.Any() && commands[0].ToLower() == "list")
+            {
+                return this.Json(new Message
+                {
+                    Text = "*翻訳可能な言語一覧*",
+                    IsEphemeral = true,
+                    IsMarkdown = true,
+                    Attachments = new []
+                    {
+                        new Attachment
+                        {
+                            Fields = Language.All.Select(x => new Field
+                            {
+                                Title = x.Name,
+                                Value = x.ShortName,
+                                IsShort = true,
+                            })
+                            .ToArray(),
+                        },
+                    },
+                }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            }
+
+            const int MinLength = 2;
             if (commands.Length < MinLength)
                 return this.HttpBadRequest();
             
@@ -123,5 +146,12 @@ namespace ApisFlorea.WebApp.Controllers
             }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
         #endregion
+
+
+        public async Task<IActionResult> Test()
+        {
+            var result = await new GoogleTranslator().TranslateAsync(Language.Japanese, "Hello");
+            return this.Json(result);
+        }
     }
 }
