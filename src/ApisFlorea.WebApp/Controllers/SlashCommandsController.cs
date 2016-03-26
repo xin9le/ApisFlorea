@@ -5,6 +5,7 @@ using ApisFlorea.Library.Threading.Tasks;
 using ApisFlorea.Models.Translation;
 using ApisFlorea.WebApp.Models.Slack;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Filters;
 using Newtonsoft.Json;
 
 
@@ -16,6 +17,74 @@ namespace ApisFlorea.WebApp.Controllers
     /// </summary>
     public class SlashCommandsController : Controller
     {
+        #region Overrides
+        /// <summary>
+        /// アクションが実行されたとに呼び出されます。
+        /// </summary>
+        /// <param name="context">実行コンテキスト</param>
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+
+            //--- 例外が飛んだ場合は握り潰してエラーを通知
+            if (context.Exception != null)
+            {
+                var color = "#C00000";
+                context.Result = this.Json(new Message
+                {
+                    Text = "Unhandled exception occured...",
+                    IsEphemeral = true,
+                    Attachments = new []
+                    {
+                        new Attachment
+                        {
+                            Color      = color,
+                            AuthorName = "Type",
+                            AuthorLink = Uri.EscapeUriString($"https://www.google.com/search?q={context.Exception.GetType()}"),
+                            Text       = context.Exception.GetType().ToString(),
+                        },
+                        new Attachment
+                        {
+                            Color      = color,
+                            AuthorName = nameof(context.Exception.Message),
+                            Text       = context.Exception.Message,
+                        },
+                        new Attachment
+                        {
+                            Color      = color,
+                            AuthorName = nameof(context.Exception.StackTrace),
+                            Text       = context.Exception.StackTrace,
+                        },
+                        new Attachment
+                        {
+                            Color      = color,
+                            AuthorName = nameof(context.Exception.InnerException),
+                            Text       = context.Exception.InnerException?.Message,
+                        },
+                    }
+                }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                context.ExceptionHandled = true;
+            }
+
+            //--- JSON を返していれば正常終了とみなす
+            if (context.Result is JsonResult)
+                return;
+
+            //--- ステータスコードを持つ場合はそれを通知
+            var message = "Error occured...";
+            var result = context.Result as HttpStatusCodeResult;
+            if (result != null)
+                message += Environment.NewLine + $"[HTTP Status Code : {result.StatusCode}]";
+
+            context.Result = this.Json(new Message
+            {
+                Text = message,
+                IsEphemeral = true,
+            }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+        }
+        #endregion
+
+
         #region API
         /// <summary>
         /// 指定した言語に文章を翻訳します。
@@ -33,13 +102,13 @@ namespace ApisFlorea.WebApp.Controllers
             if (request.Command != "/translate")
                 return this.HttpBadRequest();
 
-            //--- 引数解析 (翻訳可能一覧)
+            //--- 言語一覧
             var commands = request.Text.Split(' ');
             if (commands.Any() && commands[0].ToLower() == "list")
             {
                 return this.Json(new Message
                 {
-                    Text = "*翻訳可能な言語一覧*",
+                    Text = "*言語一覧*",
                     IsEphemeral = true,
                     IsMarkdown = true,
                     Attachments = new []
@@ -58,11 +127,16 @@ namespace ApisFlorea.WebApp.Controllers
                 }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             }
 
-            const int MinLength = 2;
-            if (commands.Length < MinLength)
+            //--- 引数は 2 つ以上必要
+            if (commands.Length < 2)
                 return this.HttpBadRequest();
             
+            //--- 第 1 引数が言語コードかどうか
+            if (!Language.ByCode.ContainsKey(commands[0]))
+                return this.HttpBadRequest();
             var to = Language.ByCode[commands[0]];
+
+            //--- 第 2 引数以降に文章があるか
             var text = string.Join(" ", commands.Skip(1));
             if (string.IsNullOrWhiteSpace(text))
                 return this.HttpBadRequest();
@@ -104,6 +178,7 @@ namespace ApisFlorea.WebApp.Controllers
                 }
                 catch
                 {
+                    //--- API 呼び出し中にエラーが発生したら握り潰す
                     return null;
                 }
             })
@@ -141,7 +216,6 @@ namespace ApisFlorea.WebApp.Controllers
             {
                 Text = text,
                 IsEphemeral = true,
-                IsMarkdown = false,
                 Attachments = attachments,
             }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
