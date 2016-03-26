@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 
 
-namespace ApisFlorea.Library.Threading.Tasks
+namespace ApisFlorea.Core.Threading.Tasks
 {
     /// <summary>
     /// System.Threading.Tasks.Taskの拡張機能を提供します。

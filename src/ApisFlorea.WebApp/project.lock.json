@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -17,7 +17,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0"
+          "ApisFlorea.Core": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -1581,7 +1581,7 @@
       }
     },
     "DNXCore,Version=v5.0": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
@@ -1598,7 +1598,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0",
+          "ApisFlorea.Core": "1.0.0",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
           "System.Linq": "4.0.1-beta-23516",
@@ -3736,7 +3736,7 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x86": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -3750,7 +3750,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0"
+          "ApisFlorea.Core": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -5317,7 +5317,7 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x64": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -5331,7 +5331,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0"
+          "ApisFlorea.Core": "1.0.0"
         },
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -6898,7 +6898,7 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x86": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
@@ -6915,7 +6915,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0",
+          "ApisFlorea.Core": "1.0.0",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
           "System.Linq": "4.0.1-beta-23516",
@@ -9509,7 +9509,7 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x64": {
-      "ApisFlorea.Library/1.0.0": {
+      "ApisFlorea.Core/1.0.0": {
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
@@ -9526,7 +9526,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "ApisFlorea.Library": "1.0.0",
+          "ApisFlorea.Core": "1.0.0",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
           "System.Linq": "4.0.1-beta-23516",
@@ -12121,9 +12121,9 @@
     }
   },
   "libraries": {
-    "ApisFlorea.Library/1.0.0": {
+    "ApisFlorea.Core/1.0.0": {
       "type": "project",
-      "path": "../ApisFlorea.Library/project.json"
+      "path": "../ApisFlorea.Core/project.json"
     },
     "ApisFlorea.Models/1.0.0": {
       "type": "project",
@@ -17083,7 +17083,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "ApisFlorea.Library >= 1.0.0-*",
+      "ApisFlorea.Core >= 1.0.0-*",
       "ApisFlorea.Models >= 1.0.0-*",
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",

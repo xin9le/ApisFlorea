@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ApisFlorea.Library.Net.Http;
+using ApisFlorea.Core.Net.Http;
 using Newtonsoft.Json.Linq;
 
 

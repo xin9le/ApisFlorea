@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ApisFlorea.Library.Threading.Tasks;
+using ApisFlorea.Core.Threading.Tasks;
 using Newtonsoft.Json;
 
 
 
-namespace ApisFlorea.Library.Net.Http
+namespace ApisFlorea.Core.Net.Http
 {
     /// <summary>
     /// System.Net.Http.HttpContentの拡張機能を提供します。

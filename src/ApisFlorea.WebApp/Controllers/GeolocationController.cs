@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ApisFlorea.Library.Threading.Tasks;
+using ApisFlorea.Core.Threading.Tasks;
 using ApisFlorea.Models.Geography;
 using Microsoft.AspNet.Mvc;
 

@@ -1,13 +1,13 @@
 ﻿{
     "version": "1.0.0-*",
-    "description": "ApisFlorea.Models Class Library",
+    "description": "ApisFlorea Models",
     "authors": [ "Takaaki" ],
     "tags": [ "" ],
     "projectUrl": "",
     "licenseUrl": "",
 
     "dependencies": {
-        "ApisFlorea.Library": "1.0.0-*"
+        "ApisFlorea.Core": "1.0.0-*"
     },
 
     "frameworks": {

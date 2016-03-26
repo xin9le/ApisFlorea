@@ -3,7 +3,7 @@ using System.Net.Http;
 
 
 
-namespace ApisFlorea.Library.Net.Http
+namespace ApisFlorea.Core.Net.Http
 {
     /// <summary>
     /// HttpResponseMessageの拡張機能を提供します。

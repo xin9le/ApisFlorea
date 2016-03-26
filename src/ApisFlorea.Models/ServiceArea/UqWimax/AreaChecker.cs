@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ApisFlorea.Library.Net.Http;
-using ApisFlorea.Library.Threading.Tasks;
+using ApisFlorea.Core.Net.Http;
+using ApisFlorea.Core.Threading.Tasks;
 using ApisFlorea.Models.Geography;
 
 

@@ -3,7 +3,7 @@ using System.Net;
 
 
 
-namespace ApisFlorea.Library.Net.Http
+namespace ApisFlorea.Core.Net.Http
 {
     /// <summary>
     /// HTTP応答時に発生した例外を表します。

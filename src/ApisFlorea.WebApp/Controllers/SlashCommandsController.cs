@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ApisFlorea.Library.Threading.Tasks;
+using ApisFlorea.Core.Threading.Tasks;
 using ApisFlorea.Models.Translation;
 using ApisFlorea.WebApp.Models.Slack;
 using Microsoft.AspNet.Mvc;
@@ -185,7 +185,7 @@ namespace ApisFlorea.WebApp.Controllers
                     {
                         Order   = i,
                         Setting = x,
-                        Result  = await x.Translator.TranslateAsync(to, text),
+                        Result  = await x.Translator.TranslateAsync(to, text).Stay(),
                     };
                 }
                 catch

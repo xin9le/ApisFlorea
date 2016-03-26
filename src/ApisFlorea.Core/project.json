@@ -1,6 +1,6 @@
 ﻿{
     "version": "1.0.0-*",
-    "description": "ApisFlorea.Library Class Library",
+    "description": "ApisFlorea Core Library",
     "authors": [ "xin9le" ],
     "tags": [ "" ],
     "projectUrl": "",
