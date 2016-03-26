@@ -19,6 +19,18 @@ namespace ApisFlorea.WebApp.Controllers
     {
         #region Overrides
         /// <summary>
+        /// 指定されたオブジェクトを JSON 形式で返します。
+        /// </summary>
+        /// <param name="data">オブジェクト</param>
+        /// <returns></returns>
+        public override JsonResult Json(object data)
+        {
+            var setting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            return base.Json(data, setting);
+        }
+
+
+        /// <summary>
         /// アクションが実行されたとに呼び出されます。
         /// </summary>
         /// <param name="context">実行コンテキスト</param>
@@ -62,7 +74,7 @@ namespace ApisFlorea.WebApp.Controllers
                             Text       = context.Exception.InnerException?.Message,
                         },
                     }
-                }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                });
                 context.ExceptionHandled = true;
             }
 
@@ -80,7 +92,7 @@ namespace ApisFlorea.WebApp.Controllers
             {
                 Text = message,
                 IsEphemeral = true,
-            }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            });
         }
         #endregion
 
@@ -124,7 +136,7 @@ namespace ApisFlorea.WebApp.Controllers
                             .ToArray(),
                         },
                     },
-                }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                });
             }
 
             //--- 引数は 2 つ以上必要
@@ -217,7 +229,7 @@ namespace ApisFlorea.WebApp.Controllers
                 Text = text,
                 IsEphemeral = true,
                 Attachments = attachments,
-            }, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            });
         }
         #endregion
 
