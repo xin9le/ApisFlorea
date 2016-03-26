@@ -14,6 +14,33 @@ namespace ApisFlorea.Models.Translation
     /// </summary>
     public class GoogleTranslator : Translator
     {
+        #region プロパティ
+        /// <summary>
+        /// 名称を取得します。
+        /// </summary>
+        public override string Name => "Google 翻訳";
+
+
+        /// <summary>
+        /// テーマカラーを取得します。
+        /// </summary>
+        /// <remarks>HEX形式 : #337DF2</remarks>
+        public override string ThemeColor => "#377DF2";
+
+
+        /// <summary>
+        /// サイト URL を取得します。
+        /// </summary>
+        public override string SiteUrl => "https://translate.google.com/";
+
+
+        /// <summary>
+        /// アイコン URL を取得します。
+        /// </summary>
+        public override string IconUrl => "http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Translate-icon.png";
+        #endregion
+
+
         #region コンストラクタ
         /// <summary>
         /// インスタンスを生成します。

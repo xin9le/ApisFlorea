@@ -9,6 +9,34 @@ namespace ApisFlorea.Models.Translation
     /// </summary>
     public abstract class Translator
     {
+        #region プロパティ
+        /// <summary>
+        /// 名称を取得します。
+        /// </summary>
+        public abstract string Name { get; }
+
+
+        /// <summary>
+        /// テーマカラーを取得します。
+        /// </summary>
+        /// <remarks>HEX形式 : #337DF2</remarks>
+        public abstract string ThemeColor { get; }
+
+
+        /// <summary>
+        /// サイト URL を取得します。
+        /// </summary>
+        public abstract string SiteUrl { get; }
+
+
+        /// <summary>
+        /// アイコン URL を取得します。
+        /// </summary>
+        public abstract string IconUrl { get; }
+        #endregion
+
+
+        #region 翻訳
         /// <summary>
         /// 翻訳前の文章を自動判定して指定の言語に翻訳します。
         /// </summary>
@@ -27,5 +55,6 @@ namespace ApisFlorea.Models.Translation
         /// <param name="text">翻訳したい文章</param>
         /// <returns>翻訳結果</returns>
         public abstract Task<TranslationResult> TranslateAsync(Language from, Language to, string text);
+        #endregion
     }
 }

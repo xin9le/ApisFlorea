@@ -48,6 +48,33 @@ namespace ApisFlorea.Models.Translation
         #endregion
 
 
+        #region プロパティ
+        /// <summary>
+        /// 名称を取得します。
+        /// </summary>
+        public override string Name => "Bing 翻訳";
+
+
+        /// <summary>
+        /// テーマカラーを取得します。
+        /// </summary>
+        /// <remarks>HEX形式 : #337DF2</remarks>
+        public override string ThemeColor => "#339933";
+
+
+        /// <summary>
+        /// サイト URL を取得します。
+        /// </summary>
+        public override string SiteUrl => "https://www.bing.com/translator";
+
+
+        /// <summary>
+        /// アイコン URL を取得します。
+        /// </summary>
+        public override string IconUrl => "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png";
+        #endregion
+
+
         #region コンストラクタ
         /// <summary>
         /// インスタンスを生成します。

@@ -155,49 +155,20 @@ namespace ApisFlorea.WebApp.Controllers
                 return this.HttpBadRequest();
 
             //--- 翻訳 API 呼び出し
-            var attachments = (await new []
+            var attachments = (await new Translator[]
             {
-                #region Translators
-                //--- Bing
-                new
-                {
-                    Translator = (Translator)new BingTranslator(),
-                    Color      = "#339933",
-                    Name       = "Bing 翻訳",
-                    Url        = "https://www.bing.com/translator",
-                    Icon       = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
-                },
-                /*
-                //--- Google
-                new
-                {
-                    Translator = (Translator)new GoogleTranslator(),
-                    Color      = "#377DF2",
-                    Name       = "Google 翻訳",
-                    Url        = "https://translate.google.com/",
-                    Icon       = "http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Translate-icon.png",
-                },
-                */
-                //--- Yahoo!
-                new
-                {
-                    Translator = (Translator)new YahooTranslator(),
-                    Color      = "#FF0031",
-                    Name       = "Yahoo! 翻訳",
-                    Url        = "http://honyaku.yahoo.co.jp",
-                    Icon       = "http://freesoft-100.com/img/yahoo-toolbar.png",
-                },
-                #endregion
+                new BingTranslator(),
+                new GoogleTranslator(),
+                new YahooTranslator(),
             }
-            .Select(async (x, i) =>
+            .Select(async x =>
             {
                 try
                 {
                     return new
                     {
-                        Order   = i,
-                        Setting = x,
-                        Result  = await x.Translator.TranslateAsync(to, text).Stay(),
+                        Translator = x,
+                        Result = await x.TranslateAsync(to, text).Stay()
                     };
                 }
                 catch
@@ -208,15 +179,14 @@ namespace ApisFlorea.WebApp.Controllers
             })
             .WhenAll())
             .Where(x => x != null)
-            .OrderBy(x => x.Order)
             .Select(x => new Attachment
             {
-                Color      = x.Setting.Color,
-                AuthorName = x.Setting.Name,
-                AuthorLink = x.Setting.Url,
-                AuthorIcon = x.Setting.Icon,
+                Color      = x.Translator.ThemeColor,
+                AuthorName = x.Translator.Name,
+                AuthorLink = x.Translator.SiteUrl,
+                AuthorIcon = x.Translator.IconUrl,
                 Text       = x.Result.After,
-                Fallback   = $"{x.Setting.Name}{Environment.NewLine}{Environment.NewLine}{x.Result.After}",
+                Fallback   = $"{x.Translator.Name}{Environment.NewLine}{Environment.NewLine}{x.Result.After}",
                 Fields = new []
                 {
                     new Field

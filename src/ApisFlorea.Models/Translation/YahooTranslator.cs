@@ -16,6 +16,33 @@ namespace ApisFlorea.Models.Translation
     /// </summary>
     public class YahooTranslator : Translator
     {
+        #region プロパティ
+        /// <summary>
+        /// 名称を取得します。
+        /// </summary>
+        public override string Name => "Yahoo! 翻訳";
+
+
+        /// <summary>
+        /// テーマカラーを取得します。
+        /// </summary>
+        /// <remarks>HEX形式 : #337DF2</remarks>
+        public override string ThemeColor => "#FF0031";
+
+
+        /// <summary>
+        /// サイト URL を取得します。
+        /// </summary>
+        public override string SiteUrl => "http://honyaku.yahoo.co.jp";
+
+
+        /// <summary>
+        /// アイコン URL を取得します。
+        /// </summary>
+        public override string IconUrl => "http://freesoft-100.com/img/yahoo-toolbar.png";
+        #endregion
+
+
         #region コンストラクタ
         /// <summary>
         /// インスタンスを生成します。
