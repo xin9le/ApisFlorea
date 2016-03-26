@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ApisFlorea.Core.Collections.Generic;
 using ApisFlorea.Core.Threading.Tasks;
 using ApisFlorea.Models.Translation;
 using ApisFlorea.WebApp.Models.Slack;
@@ -144,9 +145,9 @@ namespace ApisFlorea.WebApp.Controllers
                 return this.HttpBadRequest();
             
             //--- 第 1 引数が言語コードかどうか
-            if (!Language.ByCode.ContainsKey(commands[0]))
+            var to = Language.ByCode.GetValueOrDefault(commands[0]);
+            if (to == null)
                 return this.HttpBadRequest();
-            var to = Language.ByCode[commands[0]];
 
             //--- 第 2 引数以降に文章があるか
             var text = string.Join(" ", commands.Skip(1));
