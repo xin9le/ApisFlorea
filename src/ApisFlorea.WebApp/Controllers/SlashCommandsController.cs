@@ -167,6 +167,7 @@ namespace ApisFlorea.WebApp.Controllers
                     Url        = "https://www.bing.com/translator",
                     Icon       = "http://www.wp7connect.com/wp-content/uploads/2012/04/translator.png",
                 },
+                /*
                 //--- Google
                 new
                 {
@@ -175,6 +176,16 @@ namespace ApisFlorea.WebApp.Controllers
                     Name       = "Google 翻訳",
                     Url        = "https://translate.google.com/",
                     Icon       = "http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Translate-icon.png",
+                },
+                */
+                //--- Yahoo!
+                new
+                {
+                    Translator = (Translator)new YahooTranslator(),
+                    Color      = "#FF0031",
+                    Name       = "Yahoo! 翻訳",
+                    Url        = "http://honyaku.yahoo.co.jp",
+                    Icon       = "http://freesoft-100.com/img/yahoo-toolbar.png",
                 },
                 #endregion
             }
@@ -237,7 +248,7 @@ namespace ApisFlorea.WebApp.Controllers
 
         public async Task<IActionResult> Test()
         {
-            var result = await new GoogleTranslator().TranslateAsync(Language.Japanese, "Hello");
+            var result = await new BingTranslator().TranslateAsync(Language.Japanese, $"Hello!!{Environment.NewLine}Today is sunny day.");
             return this.Json(result);
         }
     }
