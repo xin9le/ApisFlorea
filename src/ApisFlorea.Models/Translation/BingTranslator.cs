@@ -81,15 +81,15 @@ namespace ApisFlorea.Models.Translation
                 //--- 言語指定は短い言語名で (ja/en/fr/etc.)
                 //--- 自動判定はハイフン (from=-)
                 //--- 例 : ?from=-&to=ja
-                var fromName = from?.BingShortName ?? "-";
-                var uri = Uri.EscapeUriString($"http://www.bing.com/translator/api/Translate/TranslateArray?from={fromName}&to={to.BingShortName}");
+                var code = from?.BingCode ?? "-";
+                var uri = Uri.EscapeUriString($"http://www.bing.com/translator/api/Translate/TranslateArray?from={code}&to={to.BingCode}");
                 var response = await client.PostAsync(uri, content);
 
                 //--- 結果生成
                 var result = await response.Content.ReadAsJsonAsync<Result>();
                 return new TranslationResult
                 (
-                    Language.ByBingShortName[result.from],
+                    Language.ByBingCode[result.from],
                     to,
                     text,
                     result.items[0].text

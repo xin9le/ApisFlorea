@@ -20,15 +20,15 @@ namespace ApisFlorea.Models.Translation
 
 
         /// <summary>
-        /// 短い名前を取得します。
+        /// 言語コードを取得します。
         /// </summary>
-        public string ShortName { get; }
+        public string Code { get; }
 
 
         /// <summary>
-        /// Bing翻訳用の短い名前を取得します。
+        /// Bing翻訳用の言語コードを取得します。
         /// </summary>
-        internal string BingShortName { get; }
+        internal string BingCode { get; }
         #endregion
 
 
@@ -37,16 +37,16 @@ namespace ApisFlorea.Models.Translation
         /// インスタンスを生成します。
         /// </summary>
         /// <param name="name">名前</param>
-        /// <param name="shortName">短い名前</param>
+        /// <param name="code">短い名前</param>
         /// <param name="bing">Bing翻訳用の短い名前</param>
-        private Language(string name, string shortName, string bing = null)
+        private Language(string name, string code, string bing = null)
         {
-            if (name == null)      throw new ArgumentNullException(nameof(name));
-            if (shortName == null) throw new ArgumentNullException(nameof(shortName));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            if (code == null) throw new ArgumentNullException(nameof(code));
 
             this.Name = name;
-            this.ShortName = shortName;
-            this.BingShortName = bing ?? shortName;
+            this.Code = code;
+            this.BingCode = bing ?? code;
         }
         #endregion
 
@@ -60,7 +60,7 @@ namespace ApisFlorea.Models.Translation
         #endregion
 
 
-        #region 生成
+        #region 言語一覧
         /// <summary>
         /// アラビア語を取得します。
         /// </summary>
@@ -172,8 +172,10 @@ namespace ApisFlorea.Models.Translation
             This.SimplifiedChinese,
             This.TraditionalChinese,
         };
+        #endregion
 
 
+        #region 言語マップ
         /// <summary>
         /// 名前をキーにしたインスタンスのマップを取得します。
         /// </summary>
@@ -181,15 +183,15 @@ namespace ApisFlorea.Models.Translation
 
 
         /// <summary>
-        /// 短い名前をキーにしたインスタンスのマップを取得します。
+        /// 言語コードをキーにしたインスタンスのマップを取得します。
         /// </summary>
-        public static IReadOnlyDictionary<string, This> ByShortName { get; } = This.All.ToDictionary(x => x.ShortName);
+        public static IReadOnlyDictionary<string, This> ByCode { get; } = This.All.ToDictionary(x => x.Code);
 
 
         /// <summary>
-        /// 短い名前をキーにしたインスタンスのマップを取得します。
+        /// Bing翻訳用の言語コードをキーにしたインスタンスのマップを取得します。
         /// </summary>
-        internal static IReadOnlyDictionary<string, This> ByBingShortName { get; } = This.All.ToDictionary(x => x.BingShortName);
+        internal static IReadOnlyDictionary<string, This> ByBingCode { get; } = This.All.ToDictionary(x => x.BingCode);
         #endregion
     }
 }

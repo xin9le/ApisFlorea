@@ -38,9 +38,9 @@ namespace ApisFlorea.Models.Translation
 
             //--- 言語指定は短い言語名で (ja/en/fr/etc.)
             //--- 自動判定はハイフン (from=auto)
-            var fromName = from?.ShortName ?? "auto";
+            var code = from?.Code ?? "auto";
             var escaped = Uri.EscapeDataString(text);
-            var uri = $"http://translate.google.co.jp/translate_a/single?client=t&sl={fromName}&tl={to.ShortName}&dt=t&tk=&ie=UTF-8&oe=UTF-8&q={escaped}";
+            var uri = $"http://translate.google.co.jp/translate_a/single?client=t&sl={code}&tl={to.Code}&dt=t&tk=&ie=UTF-8&oe=UTF-8&q={escaped}";
             var client = new HttpClient();
             var response = await client.GetAsync(uri);
             var json = (await response.Content.ReadAsJsonAsync()) as JArray;
@@ -48,7 +48,7 @@ namespace ApisFlorea.Models.Translation
             //--- 結果生成
             return new TranslationResult
             (
-                Language.ByShortName[json.ElementAt(2).ToString()],
+                Language.ByCode[json.ElementAt(2).ToString()],
                 to,
                 text,
                 json.First.First.First.ToString()

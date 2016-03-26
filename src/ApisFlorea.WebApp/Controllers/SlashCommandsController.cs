@@ -49,7 +49,7 @@ namespace ApisFlorea.WebApp.Controllers
                             Fields = Language.All.Select(x => new Field
                             {
                                 Title = x.Name,
-                                Value = x.ShortName,
+                                Value = x.Code,
                                 IsShort = true,
                             })
                             .ToArray(),
@@ -62,7 +62,7 @@ namespace ApisFlorea.WebApp.Controllers
             if (commands.Length < MinLength)
                 return this.HttpBadRequest();
             
-            var to = Language.ByShortName[commands[0]];
+            var to = Language.ByCode[commands[0]];
             var text = string.Join(" ", commands.Skip(1));
             if (string.IsNullOrWhiteSpace(text))
                 return this.HttpBadRequest();
