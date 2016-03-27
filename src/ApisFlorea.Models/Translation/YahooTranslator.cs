@@ -69,7 +69,8 @@ namespace ApisFlorea.Models.Translation
             var client = new HttpClient();
             string fromCode = null;
             {
-                var uri = Uri.EscapeUriString($"http://honyaku.yahoo.co.jp/LangClassifyService/V1/predict_prob?query={text}&output=json");
+                var escaped = Uri.EscapeDataString(text);
+                var uri = $"http://honyaku.yahoo.co.jp/LangClassifyService/V1/predict_prob?query={escaped}&output=json";
                 var response = await client.GetAsync(uri);
                 var bytes = await response.Content.ReadAsByteArrayAsync();
                 var json = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
