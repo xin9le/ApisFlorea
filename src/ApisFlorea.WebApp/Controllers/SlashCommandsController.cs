@@ -165,10 +165,11 @@ namespace ApisFlorea.WebApp.Controllers
             {
                 try
                 {
+                    var timeout = TimeSpan.FromMilliseconds(5000);
                     return new
                     {
                         Translator = x,
-                        Result = await x.TranslateAsync(to, text).Stay()
+                        Result = await x.TranslateAsync(to, text).Timeout(timeout).Stay(),
                     };
                 }
                 catch
