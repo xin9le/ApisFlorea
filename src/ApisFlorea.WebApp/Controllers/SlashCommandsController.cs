@@ -115,13 +115,13 @@ namespace ApisFlorea.WebApp.Controllers
             if (request.Command != "/translate")
                 return this.HttpBadRequest();
 
-            //--- 言語一覧
+            //--- 言語コード一覧
             var commands = request.Text.Split(' ');
-            if (commands.Any() && commands[0].ToLower() == "list")
+            if (commands.Any() && commands[0].ToLower() == "code")
             {
                 return this.Json(new Message
                 {
-                    Text = "*言語一覧*",
+                    Text = "*言語コード一覧*",
                     IsEphemeral = true,
                     IsMarkdown = true,
                     Attachments = new []
