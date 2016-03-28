@@ -8,6 +8,7 @@ My miscellaneous web api collection.
 
 * Geocoding
 * UQ WiMAX service quality check
+* Translator for Slash Commands
 
 
 
