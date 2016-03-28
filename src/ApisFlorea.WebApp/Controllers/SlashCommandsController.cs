@@ -112,8 +112,8 @@ namespace ApisFlorea.WebApp.Controllers
                 return this.HttpBadRequest();
 
             //--- コマンドチェック
-            if (request.Command != "/translate")
-                return this.HttpBadRequest();
+            //if (request.Command != "/translate")
+                //return this.HttpBadRequest();
 
             //--- 言語コード一覧
             var commands = request.Text.Split(' ');
